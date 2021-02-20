@@ -1,7 +1,7 @@
-## js+webpack 脚手架
+## 用来复习react相关开发模式
 
-> H5开发，
-> GodGC 统一整理
+> H5开发模板
+> --GodGC
 
 - `cd folder`
 
