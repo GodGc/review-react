@@ -3,15 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import Manager from "../contextManager";
 
-// function Order(props) {
-//     return (
-//         <div className="txt-18">
-//             123
-//             <Clock />
-//         </div>
-//     );
-// }
-
 class Clock extends React.Component {
     timer = null;
     constructor(props) {
@@ -40,17 +31,17 @@ class Clock extends React.Component {
 
     render() {
         return (
-            <Manager.Consumer>
-                {item => {
-                    <div>
-                        {item}
-                        <h1>Hello, world!</h1>
-                        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-                    </div>
-                }}
-            </Manager.Consumer>
+            <div>
+                <div>
+                    {this.context}
+                    <h1>Hello, world!</h1>
+                    <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                </div>
+            </div>
         );
     }
 }
+
+Clock.contextType = Manager;
 
 export default Clock;
