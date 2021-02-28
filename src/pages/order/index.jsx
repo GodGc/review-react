@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
+import Manager from "../contextManager";
 
-function Order(props) {
-    return (
-        <div className="txt-18">
-            {/* <Clock date={new Date()} /> */}
-            <Clock />
-        </div>
-    );
-}
+// function Order(props) {
+//     return (
+//         <div className="txt-18">
+//             123
+//             <Clock />
+//         </div>
+//     );
+// }
 
 class Clock extends React.Component {
     timer = null;
@@ -21,39 +22,35 @@ class Clock extends React.Component {
     }
     // 组件挂载时调用
     componentDidMount() {
-        this.timer = setInterval(() =>{
-            this.tick()
-        }, 1000)
-        console.log("this", this.timer);
+        this.timer = setInterval(() => {
+            this.tick();
+        }, 1000);
+        console.log("this", this.timer, this.context);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer)
+        clearInterval(this.timer);
     }
 
-    tick(){
+    tick() {
         this.setState({
-            date: new Date()
-        })
+            date: new Date(),
+        });
     }
 
     render() {
         return (
-            <div>
-                <h1>Hello, world!</h1>
-                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-            </div>
+            <Manager.Consumer>
+                {item => {
+                    <div>
+                        {item}
+                        <h1>Hello, world!</h1>
+                        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                    </div>
+                }}
+            </Manager.Consumer>
         );
     }
 }
 
-// function Clock(props) {
-//     return (
-//         <div>
-//             <h1>Hello, world!</h1>
-//             <h2>It is {props.date.toLocaleTimeString()}.</h2>
-//         </div>
-//     );
-// }
-
-export default Order;
+export default Clock;
