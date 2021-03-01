@@ -10,6 +10,7 @@ class Clock extends React.Component {
         this.state = {
             date: new Date(),
         };
+        this.handleChangeTxt;
     }
     // 组件挂载时调用
     componentDidMount() {
@@ -17,6 +18,7 @@ class Clock extends React.Component {
             this.tick();
         }, 1000);
         console.log("this", this.timer, this.context);
+        this.handleChangeTxt = this.context.changeTxt;
     }
 
     componentWillUnmount() {
@@ -31,13 +33,20 @@ class Clock extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    {this.context}
-                    <h1>Hello, world!</h1>
-                    <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-                </div>
-            </div>
+            <Manager.Consumer>
+                {value => {
+                    return <i>
+                        {value.txt}
+                    </i>
+                }}
+                {/* <div>
+                    <div onClick={()=>{this.handleChangeTxt("me too")}}>
+                        {this.context.txt}
+                        <h1>Hello, world!</h1>
+                        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                    </div>
+                </div> */}
+            </Manager.Consumer>
         );
     }
 }

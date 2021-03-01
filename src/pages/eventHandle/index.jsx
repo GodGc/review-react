@@ -2,6 +2,19 @@ import React, { useState, useEffect, Suspense } from "react";
 const Order = React.lazy(() => import("../order"));
 import ReactDOM from "react-dom";
 import "./index.scss";
+import Manager from "../contextManager";
+
+function Welcome(props) {
+    return <Manager.Consumer>
+    {
+        value=>{
+            return <div>
+                Hello, {value.txt}
+            </div>
+        }
+    }
+    </Manager.Consumer>
+}
 
 function EventHandle(props) {
     const data = 0;
@@ -20,32 +33,37 @@ function EventHandle(props) {
         }
     }
     return (
-        <div className="txt-18">
-            I'm on.
-            <br />
-            <ActionLink />
-            <br />
-            {data && <h1> 我是Hsoc9xGu</h1>}
-            {numberDom}
-            {number.map((n) => {
-                return <b key={n}>{n * 2}、</b>;
-            })}
-            <form>
-                <label>
-                    参与:
-                    <input name="isGoing" type="checkbox" checked={isGoing} onChange={handleInputChange} />
-                </label>
+        <Manager.Consumer>
+            {value=>{
+                return <div className="txt-18">
+                I'm on. {value.txt}
                 <br />
-                <label>
-                    来宾人数:
-                    <input name="numberOfGuests" type="number" value={numberOfGuests} onChange={handleInputChange} />
-                </label>
-            </form>
-            {/* Suspense 组件是react内置的 */}
-            <Suspense fallback={<div>Loading...</div>}>
-                <Order />
-            </Suspense>
-        </div>
+                <ActionLink />
+                <br />
+                {data && <h1> 我是Hsoc9xGu</h1>}
+                {numberDom}
+                {number.map((n) => {
+                    return <b key={n}>{n * 2}、</b>;
+                })}
+                <form>
+                    <label>
+                        参与:
+                        <input name="isGoing" type="checkbox" checked={isGoing} onChange={handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        来宾人数:
+                        <input name="numberOfGuests" type="number" value={numberOfGuests} onChange={handleInputChange} />
+                    </label>
+                </form>
+                {/* Suspense 组件是react内置的 */}
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Order />
+                </Suspense>
+            </div>
+            }}
+            
+        </Manager.Consumer>
     );
 }
 
@@ -60,7 +78,7 @@ function ActionLink() {
         // 改变flag值
         setFlag(!flag);
     }
-    
+
     return (
         <a href="#" onClick={handleClick}>
             {flag ? "no Wraning" : "Wraning~"}

@@ -8,9 +8,21 @@ const EventHandle = lazy(() => import("./pages/eventHandle"));
 import Manager from "./pages/contextManager"
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.changeTxt = (newTxt) =>{
+            this.setState({
+                txt: newTxt
+            })
+        }
+        this.state = {
+            txt: "I miss you",
+            changeTxt: this.changeTxt
+        }
+    }
     render() {
         return (
-            <Manager.Provider value="I miss you">
+            <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
                         <Route path="/event" component={EventHandle} />
