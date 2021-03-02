@@ -5,6 +5,7 @@ import "./index.scss";
 const Index = lazy(() => import("./pages/index"));
 const Order = lazy(() => import("./pages/order"));
 const EventHandle = lazy(() => import("./pages/eventHandle"));
+const ErrorBoundary = lazy(() => import("./pages/errorBoundary"));
 import Manager from "./pages/contextManager"
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
             <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/err" component={ErrorBoundary} />
                         <Route path="/event" component={EventHandle} />
                         <Route path="/order" component={Order} />
                         <Route path="/" component={Index} />
