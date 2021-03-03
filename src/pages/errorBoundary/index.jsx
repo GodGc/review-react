@@ -55,10 +55,12 @@ class ErrorBoundary extends React.Component {
       return <h1 onClick={this.handleClick}>{this.state.counter}</h1>;
     }
   }
-  
+  let fs12 = {
+      fontSize: '12px',
+  }
   function Index() {
     return (
-      <div>
+      <div style={fs12}>
         <p>
           <b>
             This is an example of error boundaries in React 16.
