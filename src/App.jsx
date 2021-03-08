@@ -8,6 +8,7 @@ const EventHandle = lazy(() => import("./pages/eventHandle"));
 const ErrorBoundary = lazy(() => import("./pages/errorBoundary"));
 const FancyButton = lazy(() => import("./pages/ref"));
 const LongList = lazy(() => import("./pages/longlist"));
+const Portal = lazy(() => import("./pages/portal"));
 import Manager from "./pages/contextManager"
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
             <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/portal" component={Portal} />
                         <Route path="/longlist" component={LongList} />
                         <Route path="/ref" component={FancyButton} />
                         <Route path="/err" component={ErrorBoundary} />
