@@ -73,6 +73,8 @@ class Game extends React.Component {
         });
     }
     handleClick(i) {
+        console.log('FIND', ReactDOM.findDOMNode(this._board), this._board)
+
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -86,6 +88,8 @@ class Game extends React.Component {
           }]),
           stepNumber: history.length,
           xIsNext: !this.state.xIsNext,
+        },()=>{
+            console.log(this.state.stepNumber)
         });
     }
     render() {
@@ -108,10 +112,15 @@ class Game extends React.Component {
         } else {
             status = "Next player: " + (this.state.xIsNext ? "X" : "O");
         }
+        console.log('Board', React.createElement(
+            'h1',
+            {className: 'greeting'},
+            'Hello, world!',
+          ))
         return (
             <div className="game">
                 <div className="game-board">
-                    <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
+                    <Board key={9} ref={(_board)=>{this._board = _board}} squares={current.squares} onClick={(i) => this.handleClick(i)} />
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
