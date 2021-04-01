@@ -10,14 +10,6 @@ function Square(props) {
     );
 }
 
-// class Square extends React.Component {
-//     render() {
-//         return <button className="square" onClick={()=>{
-//             this.props.onClick()
-//         }}>{this.props.value}</button>;
-//     }
-// }
-
 class Board extends React.Component {
     renderSquare(i) {
         return (
@@ -29,7 +21,7 @@ class Board extends React.Component {
             />
         );
     }
-
+    
     render() {
         return (
             <div>
@@ -64,8 +56,39 @@ class Game extends React.Component {
             ],
             xIsNext: true,
             stepNumber: 0,
+            initNum: 0,
         };
     }
+
+    componentDidMount(){
+        const promise = new Promise(function(resolve, reject) {
+            if (true){
+              resolve(1);
+            } else {
+              reject(2);
+            }
+          });
+          promise.then(() => {
+            // We're not in an event handler, so these are flushed separately.
+            // this.setState({a: true}); // Re-renders with {a: true, b: false }
+            // this.setState({b: true}); // Re-renders with {a: true, b: true }
+            this.setState({
+                initNum: 1
+            },()=>{
+            })
+            console.log('game end01', this.state.initNum)
+            this.setState({
+                initNum: this.state.initNum +2
+            },()=>{
+            })
+            console.log('game end02', this.state.initNum)
+        });
+        console.log('game Start', this.state.initNum)
+        // setTimeout(() => {
+            
+        // }, 0);
+    }
+
     jumpTo(step) {
         this.setState({
           stepNumber: step,
@@ -112,7 +135,7 @@ class Game extends React.Component {
         } else {
             status = "Next player: " + (this.state.xIsNext ? "X" : "O");
         }
-        console.log('Board', React.createElement(
+        console.log('render执行', React.createElement(
             'h1',
             {className: 'greeting'},
             'Hello, world!',
@@ -130,7 +153,8 @@ class Game extends React.Component {
         );
     }
 }
-
+console.log('Square', Square.prototype)
+console.log('Game', Game.prototype)
 export default Game;
 
 function calculateWinner(squares) {

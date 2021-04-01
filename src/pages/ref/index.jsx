@@ -78,4 +78,6 @@ function Fancy(props) {
     ];
 }
 
+console.log('Fancy', Fancy.prototype)
+
 export default Fancy;

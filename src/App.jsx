@@ -11,6 +11,7 @@ const LongList = lazy(() => import("./pages/longlist"));
 const Portal = lazy(() => import("./pages/portal"));
 const Memo = lazy(() => import("./pages/memo"));
 const HookPage = lazy(() => import("./pages/hkpage"));
+const FiberPage = lazy(() => import("./pages/fiber"));
 import Manager from "./pages/contextManager"
 
 class App extends Component {
@@ -23,14 +24,28 @@ class App extends Component {
         }
         this.state = {
             txt: "I miss you",
-            changeTxt: this.changeTxt
+            changeTxt: this.changeTxt,
         }
     }
+
+    componentWillMount(){
+        this.setState({
+            txt: 'wala?'
+        });
+        console.log('APP-MOUNT', this.state.txt)
+        this.setState({
+            txt: 'gogo'
+        })
+        console.log('APP-MOUNT', this.state.txt)
+    }
+
     render() {
+        console.log('APP-render',this.state.txt)
         return (
             <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/fiber" component={FiberPage} />
                         <Route path="/hook" component={HookPage} />
                         <Route path="/memo" component={Memo} />
                         <Route path="/portal" component={Portal} />
