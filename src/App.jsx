@@ -12,6 +12,7 @@ const Portal = lazy(() => import("./pages/portal"));
 const Memo = lazy(() => import("./pages/memo"));
 const HookPage = lazy(() => import("./pages/hkpage"));
 const FiberPage = lazy(() => import("./pages/fiber"));
+const Interview = lazy(() => import("./pages/interview"));
 import Manager from "./pages/contextManager"
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
             <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/interview" component={Interview} />
                         <Route path="/fiber" component={FiberPage} />
                         <Route path="/hook" component={HookPage} />
                         <Route path="/memo" component={Memo} />
