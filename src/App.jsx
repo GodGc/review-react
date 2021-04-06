@@ -14,6 +14,9 @@ const HookPage = lazy(() => import("./pages/hkpage"));
 const FiberPage = lazy(() => import("./pages/fiber"));
 const Interview = lazy(() => import("./pages/interview"));
 import Manager from "./pages/contextManager"
+// redux
+import { Provider } from "react-redux"
+import {Store} from "./pages/redux/Store"
 
 class App extends Component {
     constructor(props) {
