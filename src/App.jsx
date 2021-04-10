@@ -15,8 +15,8 @@ const FiberPage = lazy(() => import("./pages/fiber"));
 const Interview = lazy(() => import("./pages/interview"));
 import Manager from "./pages/contextManager"
 // redux
-import { Provider } from "react-redux"
-import {Store} from "./pages/redux/Store"
+// import { Provider } from "react-redux"
+// import {Store} from "./pages/redux/Store"
 
 class App extends Component {
     constructor(props) {
@@ -34,19 +34,15 @@ class App extends Component {
 
     componentWillMount(){
         this.setState({
-            txt: 'wala?'
-        });
-        console.log('APP-MOUNT', this.state.txt)
-        this.setState({
-            txt: 'gogo'
+            txt: 'APP入口传入的默认数据'
         })
-        console.log('APP-MOUNT', this.state.txt)
     }
 
     render() {
         console.log('APP-render',this.state.txt)
         return (
-            <Manager.Provider value={this.state}>
+            // 通过新旧值检测来确定变化，使用了与 Object.is 相同的算法。
+            <Manager.Provider value={this.state}> 
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
                         <Route path="/interview" component={Interview} />

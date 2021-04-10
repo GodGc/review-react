@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
 const Order = React.lazy(() => import("../order"));
-import ReactDOM from "react-dom";
 import "./index.scss";
 import Manager from "../contextManager";
 
@@ -17,9 +16,11 @@ function Welcome(props) {
 }
 
 function EventHandle(props) {
+    // 函数式组件内部无this
+    console.log('Event Func component this:', this)
     const data = 0;
     const number = [1, 2, 3, 4, 5, 6];
-    const numberDom = number.map((n) => <p key={n}>{n}</p>);
+    const numberDom = number.map((n) => <span key={n}>{n}、</span>);
     const [isGoing, setIsGoing] = useState(true);
     const [numberOfGuests, setNumberOfGuests] = useState(2);
 
@@ -42,6 +43,7 @@ function EventHandle(props) {
                 <br />
                 {data && <h1> 我是Hsoc9xGu</h1>}
                 {numberDom}
+                <br/>
                 {number.map((n) => {
                     return <b key={n}>{n * 2}、</b>;
                 })}
@@ -56,10 +58,11 @@ function EventHandle(props) {
                         <input name="numberOfGuests" type="number" value={numberOfGuests} onChange={handleInputChange} />
                     </label>
                 </form>
-                {/* Suspense 组件是react内置的 */}
+                {/* Suspense 组件是react内置的，用作加载前展示部分 */}
                 <Suspense fallback={<div>Loading...</div>}>
                     <Order />
                 </Suspense>
+                <Welcome />
             </div>
             }}
             
