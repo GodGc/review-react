@@ -4,15 +4,6 @@ import { createStore } from "redux";
 const INCREMENT = "INCREMENT";
 const RESET = "RESET";
 
-function increment (){
-  return { type: INCREMENT }
-}
-
-function reset (){
-  return { type: RESET }
-}
-
-
 // start
 const initialState = {
     count: 0,
@@ -22,12 +13,12 @@ const initialState = {
 
 const reducer = (state = initialState, actions) =>{
     switch(actions.type){
-        case "INCREMENT":
-            return {
+        case INCREMENT:
+            return { // 返回的state 会被Store 用来更新
                 ...state,
                 count: state.count +1
             }
-        case "RESET":
+        case RESET:
             return {
                 ...state,
                 count: 0

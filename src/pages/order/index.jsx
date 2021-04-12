@@ -9,6 +9,7 @@ class Clock extends React.Component {
         super(props);
         this.state = {
             date: new Date(),
+            num: 0,
         };
         this.handleChangeTxt;
     }
@@ -19,6 +20,31 @@ class Clock extends React.Component {
         }, 1000);
         console.log("this", this.timer, this.context);
         this.handleChangeTxt = this.context.changeTxt;
+
+
+        this.setState({
+            num: this.state.num+1
+        })
+        console.log('async-num01:', this.state.num);
+        this.setState({
+           num: this.state.num+1
+        })
+        console.log('async-num02:', this.state.num);
+
+        setTimeout(() => {
+            this.setState({
+               num: this.state.num+1
+            })
+            console.log('un-async-num01:', this.state.num);
+            this.setState({
+               num: this.state.num+1
+            })
+            console.log('un-async-num02:', this.state.num);
+            this.setState({
+                num: this.state.num+1
+            })
+            console.log('un-async-num03:', this.state.num);
+        }, 0);
     }
 
     componentWillUnmount() {
@@ -37,8 +63,11 @@ class Clock extends React.Component {
                 {value => {
                     return <i>
                         {value.txt}
+                        num: {this.state.num}
                     </i>
                 }}
+
+
                 {/* <div>
                     <div onClick={()=>{this.handleChangeTxt("me too")}}>
                         {this.context.txt}
