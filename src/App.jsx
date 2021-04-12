@@ -13,6 +13,7 @@ const Memo = lazy(() => import("./pages/memo"));
 const HookPage = lazy(() => import("./pages/hkpage"));
 const FiberPage = lazy(() => import("./pages/fiber"));
 const Interview = lazy(() => import("./pages/interview"));
+const Demo = lazy(() => import("./pages/demo"));
 import Manager from "./pages/contextManager"
 // redux
 import { Provider } from "react-redux"
@@ -49,6 +50,7 @@ class App extends Component {
             <Manager.Provider value={this.state}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/demo" component={Demo} />
                         <Route path="/interview" component={Interview} />
                         <Route path="/fiber" component={FiberPage} />
                         <Route path="/hook" component={HookPage} />
