@@ -1,10 +1,13 @@
 import React from "react";
+import {Store} from "../redux/Store"
+import {connect} from "react-redux"
+import {increment, reset, fetchData} from "../redux/actions";
 
-export default class Demo extends React.Component {
+class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: 123,
+            data: 999,
         };
     }
 
@@ -27,20 +30,44 @@ export default class Demo extends React.Component {
     componentDidMount() {
         console.log("componentDidMount RUN==");
 
-        setTimeout(() => {
-            this.setState({
-                data: 999,
-            });
-        }, 2000);
+        // setTimeout(() => {
+        //     this.setState({
+        //         data: 999,
+        //     });
+        // }, 2000);
+    }
+
+    handleOnClick = ()=>{
+        console.log('onClick', this.props,this.props.storeData);
+        // 执行dispatch
+        this.props.increment();
     }
 
     render() {
-        return <div>demo {this.state.data}</div>;
+        return <div onClick={this.handleOnClick} >
+            demo {this.state.data}
+            <br/>
+            StoreData: {this.props.storeData&&this.props.storeData.count}
+        </div>;
     }
 }
 
-// export default function Demo(){
-//     return (
-//         <div>demo</div>
-//     )
-// }
+// store 中state 对 当前组件props的映射，告诉store你要从它那里取什么值
+function mapStateToProps(state){
+    // 可以取特定的某个值
+    // return {
+    //   count: state.count,
+    // }
+    // 可以全部映射到props上
+    return {
+        storeData: state
+    }
+}
+
+// connect dispatch - 这样dispatch就会挂载到this.props上，执行时会自动执行 this.props.dispatch(actions)
+const mapDispatchToProps = {
+    increment,
+    reset
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Demo)

@@ -13,6 +13,8 @@ const element = (
     </div>
 )
 
+// concureent模式：异步 >17支持
+// ReactDom.unstable_createRoot(document.getElementById('root')).render(<HashRouter><App /></HashRouter>)
 
 ReactDom.render(<HashRouter>
     <App></App>

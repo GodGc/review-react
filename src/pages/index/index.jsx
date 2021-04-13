@@ -61,6 +61,20 @@ class Game extends React.Component {
     }
 
     componentDidMount(){
+        this.setState((state, props)=>{
+            console.log('setState Run')
+            return {
+                initNum: state.initNum + 999
+            }
+        })
+        // 同步setState的方式，Promise 优先级 > setTimeout
+        setTimeout(() => {
+            // 也会脱离react事务的接管流程
+            this.setState({
+                initNum: this.state.initNum + 1
+            })
+            console.log('setTimeout run', this.state.initNum)
+        }, 0);
         const promise = new Promise(function(resolve, reject) {
             if (true){
               resolve(1);
@@ -73,7 +87,7 @@ class Game extends React.Component {
             // this.setState({a: true}); // Re-renders with {a: true, b: false }
             // this.setState({b: true}); // Re-renders with {a: true, b: true }
             this.setState({
-                initNum: 1
+                initNum: this.state.initNum +1
             },()=>{
             })
             console.log('game end01', this.state.initNum)
@@ -84,9 +98,7 @@ class Game extends React.Component {
             console.log('game end02', this.state.initNum)
         });
         console.log('game Start', this.state.initNum)
-        // setTimeout(() => {
-            
-        // }, 0);
+        
     }
 
     jumpTo(step) {

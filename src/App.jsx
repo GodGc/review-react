@@ -16,8 +16,8 @@ const Interview = lazy(() => import("./pages/interview"));
 const Demo = lazy(() => import("./pages/demo"));
 import Manager from "./pages/contextManager"
 // redux
-// import { Provider } from "react-redux"
-// import {Store} from "./pages/redux/Store"
+import { Provider } from "react-redux"
+import {Store} from "./pages/redux/Store"
 
 class App extends Component {
     constructor(props) {
@@ -43,7 +43,9 @@ class App extends Component {
         console.log('APP-render',this.state.txt)
         return (
             // 通过新旧值检测来确定变化，使用了与 Object.is 相同的算法。
-            <Manager.Provider value={this.state}> 
+            // <Manager.Provider value={this.state}> 
+            // 使用redux进行数据管理
+            <Provider store={Store}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
                         <Route path="/demo" component={Demo} />
@@ -60,7 +62,8 @@ class App extends Component {
                         <Route path="/" component={Index} />
                     </Switch>
                 </Suspense>
-            </Manager.Provider>
+            </Provider>
+            // </Manager.Provider>
         );
     }
 }
