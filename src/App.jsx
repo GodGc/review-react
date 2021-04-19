@@ -14,6 +14,7 @@ const HookPage = lazy(() => import("./pages/hkpage"));
 const FiberPage = lazy(() => import("./pages/fiber"));
 const Interview = lazy(() => import("./pages/interview"));
 const Demo = lazy(() => import("./pages/demo"));
+const Demo02 = lazy(() => import("./pages/demo02"));
 import Manager from "./pages/contextManager"
 // redux
 import { Provider } from "react-redux"
@@ -33,11 +34,11 @@ class App extends Component {
         }
     }
 
-    componentWillMount(){
-        this.setState({
-            txt: 'APP入口传入的默认数据'
-        })
-    }
+    // componentWillMount(){
+    //     this.setState({
+    //         txt: 'APP入口传入的默认数据'
+    //     })
+    // }
 
     render() {
         console.log('APP-render',this.state.txt)
@@ -48,6 +49,7 @@ class App extends Component {
             <Provider store={Store}>
                 <Suspense fallback={<div>loading...</div>}>
                     <Switch>
+                        <Route path="/demo02" component={Demo02} />
                         <Route path="/demo" component={Demo} />
                         <Route path="/interview" component={Interview} />
                         <Route path="/fiber" component={FiberPage} />

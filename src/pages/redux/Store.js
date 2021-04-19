@@ -1,4 +1,7 @@
-import { createStore } from "redux";
+import { createStore, combineReducers,applyMiddleware } from "redux";
+// 在redux中进行网络请求
+import thunk from "redux-thunk";
+import dataReducer from './dataReducer'
 
 // const 定义保证actions.type的不变性
 const INCREMENT = "INCREMENT";
@@ -28,5 +31,8 @@ const reducer = (state = initialState, actions) =>{
     }
 }
 
+
 // 创建一个中轴系统store
-export const Store = createStore(reducer);
+// minddleware 的执行时机是在 disptach之后，reducer触发之前
+// redux-thunk 会检查dispatch的是否是一个函数，如果是一个函数 => 执行，不是函数，放过执行后续
+export const Store = createStore(combineReducers({normal: reducer, dataReducer}), applyMiddleware(thunk));

@@ -87,6 +87,27 @@ module.exports = merge(common, {
         sourceMap: true // set to true if you want JS source maps
       }),
       new OptimizeCSSAssetsPlugin({})
-    ]
+    ],
+    // 提取多页面引用的vendor-进行代码分割
+    splitChunks:{
+        cacheGroups:{
+            common: {
+                name: "common",
+                chunks: "initial",
+                test: /[\\/]src[\\/](common | style)/,
+                minSize: 1, // 生成 chunk 的最小体积（以 bytes 为单位）
+                priority: 0,
+                minChunks: 3, //拆分前必须共享模块的最小 chunks 数
+            },
+            vendor: {
+                name: "vendor",
+                chunks: "initial",
+                test: /[\\/]node_modules[\\/]/,
+                priority: 10,
+                minChunks: 2,
+            }
+        }
+    },
+    runtimeChunk: {name: "manifest"} // 运行时代码
   }
 })
